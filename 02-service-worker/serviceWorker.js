@@ -1,9 +1,9 @@
-self.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", async (event) => {
   const {
     request: { url },
   } = event;
-  if (url.includes("main.jpg")) {
-    const customURL = "./img/main-patas-arriba.jpg";
-    event.respondWith(fetch(customURL));
-  }
+  const response = fetch(url).then((resp) =>
+    resp.ok ? resp : fetch("./img/main.jpg")
+  );
+  event.respondWith(response);
 });
