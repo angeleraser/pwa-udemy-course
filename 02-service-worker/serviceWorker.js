@@ -3,7 +3,20 @@ self.addEventListener("fetch", (event) => {
     request: { url },
     request,
   } = event;
-  if (url.includes(".jpg")) {
-    event.respondWith(fetch(request));
+  if (url.includes("style.css")) {
+    const customResponse = new Response(
+      `
+      body {
+        background-color: red;
+        color: #fff;
+      }
+    `,
+      {
+        headers: {
+          "Content-Type": "text/css",
+        },
+      }
+    );
+    event.respondWith(customResponse);
   }
 });
